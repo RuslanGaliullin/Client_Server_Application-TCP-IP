@@ -1,0 +1,8 @@
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Client/CMakeFiles/Echo_client.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Client/CMakeFiles/edit_cache.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Client/CMakeFiles/rebuild_cache.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Server/CMakeFiles/Echo_server.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Server/CMakeFiles/edit_cache.dir
+/Users/ruslangaliullin/CLionProjects/Echo_client/cmake-build-debug/Server/CMakeFiles/rebuild_cache.dir

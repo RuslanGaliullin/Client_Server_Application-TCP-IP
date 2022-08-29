@@ -18,7 +18,7 @@ void Client::DoRead() {
   });
 }
 void Client::OnRead(boost::system::error_code error, size_t) {
-  if (ec) {
+  if (error) {
     Stop();
     return;
   }
@@ -31,9 +31,8 @@ void Client::OnRead(boost::system::error_code error, size_t) {
 void Client::Stop() {
   boost::system::error_code error;
   _socket.close(error);
-  
   if (error) {
-    std::cerr << error << std::endl;
+    std::cerr << error.message() << std::endl;
   }
 }
 void Client::DoWrite() {
@@ -44,7 +43,7 @@ void Client::DoWrite() {
               });
 }
 
-void Client::OnWrite(boost::system::error_code ec, size_t) {
+void Client::OnWrite(boost::system::error_code error, size_t) {
   if (error) {
     Stop();
     return;

@@ -19,7 +19,6 @@ int Server::Run() {
   return 0;
 }
 void Server::Broadcast(const std::string &message) {
-  std::cout << "broadcast";
   for (auto &connection : _connections) {
     connection->Post(message);
   }
@@ -34,7 +33,7 @@ void Server::StartAccept() {
       new_connection->Start([this](const std::string &message) { OnClientMessage(message); },
                             [&, weak = std::weak_ptr(new_connection)] {
                               if (auto shared = weak.lock(); shared && _connections.erase(shared)) {
-                                std::cout << "User has left the server: " << new_connection->GetUsername() << std::endl;
+                                OnLeave(shared);
                               }
                             });
     } else {

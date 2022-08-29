@@ -19,7 +19,7 @@ TCPConnection::TCPConnection(ip::tcp::socket &&socket) : _socket(std::move(socke
 }
 void TCPConnection::Start(MessageHandler &&messageHandler, ErrorHandler &&errorHandler) {
   _messageHandler = std::move(messageHandler);
-  errorHandler = std::move(errorHandler);
+  _errorHandler = std::move(errorHandler);
   
   DoRead();
 }

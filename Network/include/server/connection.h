@@ -33,4 +33,3 @@ class TCPConnection : public std::enable_shared_from_this<TCPConnection> {
   ErrorHandler _errorHandler;
 };
 }
-#endif //ECHO_SERVER_CONNECTION_H_

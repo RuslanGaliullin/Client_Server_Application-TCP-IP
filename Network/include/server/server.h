@@ -1,22 +1,21 @@
-//
-// Created by Ruslan Galiullin on 27.08.2022.
-//
+#pragma once
 
-#ifndef ECHO_SERVER_SERVER_H_
-#define ECHO_SERVER_SERVER_H_
+#include "connection.h"
 #include <boost/asio.hpp>
 #include <functional>
 #include <optional>
 #include <unordered_set>
 #include <memory>
-#include "Connection.h"
-namespace Server_connection {
+
+
+
+namespace CSA {
 using OnJoinHandler = std::function<void(std::shared_ptr<TCPConnection>)>;
 using OnLeaveHandler = std::function<void(std::shared_ptr<TCPConnection>)>;
 using OnClientMessageHandler = std::function<void(std::string)>;
 enum class IPV {
-  V4,
-  V6
+  v4,
+  v6
 };
 class Server {
  private:
@@ -36,4 +35,3 @@ class Server {
   OnClientMessageHandler OnClientMessage;
 };
 }
-#endif //ECHO_SERVER_SERVER_H_

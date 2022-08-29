@@ -1,9 +1,5 @@
-//
-// Created by Ruslan Galiullin on 27.08.2022.
-//
+#pragma once
 
-#ifndef ECHO_SERVER_CONNECTION_H_
-#define ECHO_SERVER_CONNECTION_H_
 #include <string>
 #include <boost/asio.hpp>
 #include <functional>
@@ -11,7 +7,7 @@
 #include <unordered_set>
 #include <queue>
 #include <functional>
-namespace Server_connection {
+namespace CSA {
 using MessageHandler = std::function<void(std::string)>;
 using ErrorHandler = std::function<void()>;
 class TCPConnection : public std::enable_shared_from_this<TCPConnection> {
@@ -23,7 +19,7 @@ class TCPConnection : public std::enable_shared_from_this<TCPConnection> {
   void DoWrite();
   void OnWrite(boost::system::error_code &error, size_t bytes);
   void Start(MessageHandler &&message_handler, ErrorHandler &&error_handler);
-  void Stop(const boost::system::error_code &error);
+//  void Stop(const boost::system::error_code &error);
   std::string GetUsername() { return _username; };
  private:
   

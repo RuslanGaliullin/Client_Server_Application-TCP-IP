@@ -1,10 +1,7 @@
-//
-// Created by Ruslan Galiullin on 27.08.2022.
-//
-#include "Connection.h"
-#include <strstream>
+#include "../../include/server/connection.h"
 #include <iostream>
-namespace Server_connection {
+using namespace  boost::asio;
+namespace CSA {
 void TCPConnection::Post(const std::string &message) {
   bool queueIdle = _outgoingMessages.empty();
   _outgoingMessages.push(message);
@@ -14,16 +11,15 @@ void TCPConnection::Post(const std::string &message) {
   }
 }
 
-TCPConnection::TCPConnection(boost::asio::ip::tcp::socket &&socket) : _socket(std::move(socket)) {
-  boost::system::error_code ec;
+TCPConnection::TCPConnection(ip::tcp::socket &&socket) : _socket(std::move(socket)) {
   std::stringstream name;
   name << _socket.remote_endpoint();
   
   _username = name.str();
 }
-void TCPConnection::Start(MessageHandler &&message_handler, ErrorHandler &&error_handler) {
-  _messageHandler = std::move(message_handler);
-  error_handler = std::move(error_handler);
+void TCPConnection::Start(MessageHandler &&messageHandler, ErrorHandler &&errorHandler) {
+  _messageHandler = std::move(messageHandler);
+  errorHandler = std::move(errorHandler);
   
   DoRead();
 }
@@ -34,9 +30,9 @@ void TCPConnection::Start(MessageHandler &&message_handler, ErrorHandler &&error
 }*/
 
 void TCPConnection::DoRead() {
-  boost::asio::async_read_until(_socket, _streamBuf, "\n", [self = shared_from_this()]
-      (boost::system::error_code ec, size_t bytesTransferred) {
-    self->OnRead(ec, bytesTransferred);
+  async_read_until(_socket, _streamBuf, "\n", [self = shared_from_this()]
+      (boost::system::error_code error, size_t bytesTransferred) {
+    self->OnRead(error, bytesTransferred);
   });
 }
 void TCPConnection::OnRead(boost::system::error_code &error, size_t bytes) {
@@ -55,11 +51,11 @@ void TCPConnection::OnRead(boost::system::error_code &error, size_t bytes) {
 }
 void TCPConnection::DoWrite() {
   boost::asio::async_write(_socket, boost::asio::buffer(_outgoingMessages.front()), [self = shared_from_this()]
-      (boost::system::error_code ec, size_t bytesTransferred) {
-    self->OnWrite(ec, bytesTransferred);
+      (boost::system::error_code error, size_t bytesTransferred) {
+    self->OnWrite(error, bytesTransferred);
   });
 }
-void TCPConnection::OnWrite(boost::system::error_code &error, size_t bytes) {
+void TCPConnection::OnWrite(boost::system::error_code &error, size_t) {
   if (error) {
     _socket.close(error);
     

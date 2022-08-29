@@ -1,4 +1,4 @@
-# Install script for directory: /Users/ruslangaliullin/CLionProjects/Echo_client/Server
+# Install script for directory: /Users/ruslangaliullin/CLionProjects/TCP-IP_CSA/Server
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
